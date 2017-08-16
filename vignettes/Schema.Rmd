@@ -7,7 +7,7 @@ output: html_document
 
 # Schema
 
-## dbGaP metadata
+## What does dbGaP metadata contain?
 
 ### There are five files in the dbGaP metadata:
 1. study_dataset_info.txt 
