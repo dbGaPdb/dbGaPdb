@@ -57,9 +57,16 @@ tables$study_variable_info <- tables$study_variable_info %>%
   mutate(study_alias = str_split(study_accession, '\\.')[[1]][1])
 ```
 
-Study accession codes found in the dpGaPdp metadata include study version information (e.g., `phs000514.v1`). However, SRAdb study accession codes do not follow the same nomenclature (e.g., `phs000307_49`). The above lines of code trim the inconsistency yet, preserve the correct linking of the two databases using `dplyr`.
+Study accession codes found in the dpGaPdp metadata include study version information (e.g., `phs000514.v1`). However, SRAdb study accession codes do not follow the same nomenclature (e.g., `phs000307_49`). The above lines of code trim the inconsistency and generate a new column that holds consistent values between the two databases.
 
+```{r, eval=FALSE}
+SRAdb_dbGaP <- left_join(dbDaPdb$study_variable_info, sra_in_dbGaP, by = c('study_alias' = 'study_alias2'))
+```
 After the SRAdb and the dbGaP metadata are linked, we are able to construct queries on variables across the two databases. 
+
+```{r. eval=FALSE}
+SRAdb_dbGaP %>% unique() %>% group_by(disease, study_alias, ) %>% summarise(count=n())
+```
 
 ### Example 1 
 ### How many studies with emphysema information have RNA-seq data?
