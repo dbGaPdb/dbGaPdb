@@ -1,0 +1,63 @@
+---
+title: "Querying dbGaPdb"
+author: "David McGaughey"
+date: "8/16/2017"
+output: html_document
+---
+
+# Load libraries
+```{r}
+library(dbGaPdb)
+library(RSQLite)
+library(dplyr)
+library(dbplyr)
+```
+# Downloading the dbGaPdb sqlite file and connecting to it via RSQLite
+We strongly suggest you provide a path for the `pull_dbGaPdb_sqlite()` script so you know exactly where the sqlite file is. The below is taken from the quick start from the readme
+```{r}
+dbGaPdb_file <- pull_dbGaPdb_sqlite(local_path = '~/')
+dbGaPdb <- src_sqlite(dbGaPdb_file)
+# If you've already downloaded the sqlite file
+## dbGaPdb <- src_sqlite('~/PATH/your_dbGaP.sqlite')
+```
+
+# Bits
+The dbGaPdb metadata is stored as a sqlite file. It is updated each week, so if you want the latest metadata, then re-run `pull_dbGaPdb_sqlite()`. Otherwise you can use your downloaded sqlite file indefinitely. As of 2017-08-16, the sqlite file is ~108 mb compressed and ~547 mb uncompressed. It must be uncompressed to use.
+
+# What tables are available?
+```{r}
+dbGaPdb
+```
+
+## dbplyr
+We will be using dplyr via dbplyr to query the sql database. This allows for, in our opinion, a gentler introduction to querying sqlite for people who don't have previous experience writing sql queries. A good tutorial on dplyr and sql is located [here](http://www.datacarpentry.org/R-ecology-lesson/05-r-and-databases.html)
+
+## SQL experts
+Use this convention to run sql queries directly on the sqlite database
+```{r}
+tbl(dbGaPdb, sql('SELECT study_accession, dataset_accession, short_description FROM study_dataset_info LIMIT 5' ))
+```
+
+# Link to two of the tables
+```{r}
+study_dataset_info_SQL <- tbl(dbGaPdb, "study_dataset_info")
+study_variable_info_SQL <- tbl(dbGaPdb, "study_variable_info")
+```
+
+# Peek
+```{r}
+study_dataset_info_SQL %>% head()
+study_variable_info_SQL %>% head()
+```
+
+# Filter
+```{r}
+study_variable_info_SQL %>% filter(female_count > 1000) %>% head()
+```
+
+# Loading whole tables into memory as a R data frame
+You cannot run the full gamut of dplyr queries on SQLite, as several (e.g. tail(), sample_n()) require the data to be in memory. As the database isn't not too huge, most computers can handle having the tables loaded as a data frame
+```{r}
+study_variable_info <- study_variable_info_SQL %>% data.frame()
+study_variable_info %>% sample_n(10) %>% select(study_accession, )
+```
