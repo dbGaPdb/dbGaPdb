@@ -15,25 +15,25 @@ code goes here
 
 ## NIH Common Data Elements (CDE)
 
-NIH is currently producing Common Data Elements (cde.nih.nlm.gov) to harmonize the categories of data present across studies available in their databases. This is currently implemented in dbGaP, and provides both a common naming terminology (often an amorphous concept) and *consensus measures for Phenotypes and eXposures (PhenX)* identifier. You can download a cross reference to dbGaP an therefore SRA.
-
-```{r cars}
-summary(cars)
-```
+NIH is currently producing Common Data Elements (cde.nih.nlm.gov) to harmonize the categories of data types present across studies available in their databases. This is currently implemented in dbGaP, and provides both a common naming terminology (often an amorphous concept) and *consensus measures for Phenotypes and eXposures (PhenX)* identifier. You can download a cross reference to dbGaP (phs study accession) an therefore SRAdb (sequence datatype) and define a set of studies in which that data parameter was taken, as well as other characteristics of those studies, to help determine which datasets are useful to you (before you spend a chunk of time and energy requesting access from dbGaP).
 
 ## Generating Data Table from exported json  
-Currently there is not programatic access to CDE elements, so a batch file must be downloaded. You can go to the NIH CDE website https://cde.nlm.nih.gov/cde/search?selectedOrg=PhenX and search their PhenX terms for dbGaP. From the results you can stratify by category (on the left) and export a json (upper right corner) 
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+Currently there is not programatic access to CDE elements, so a batch file must be downloaded. You can go to the NIH CDE website https://cde.nlm.nih.gov/cde/search?selectedOrg=PhenX and search their PhenX terms for dbGaP. From the results you can stratify by category (on the left) and export a json (upper right corner):
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+![Image of CDE website](./NIH_CDE.PNG)
+
 
 ##Importing Table to dbGaPdb
 
-texttexttext
+The json exported from the website can be quickly parsed using the associated CDE_lite_json.py python script (tested in 2.7 and 3.6) and the output loaded in to dbGaPdb using the following commands:  
 
-##Joining with variable tables for more information
+```
+source
+```
 
-##Generating a list of Studies with your data type
+##Querying based on the new table
+
+At this point, the primary key is the variable_accseeion (phv) is indexed to both the PhenX_ID and the Phenx text name. At this point the table can be queried with the standard dbGaP querying (See Intro_to_dbGaP_querying). For instance, if you wanted a list of studies associated with your data
+
+
