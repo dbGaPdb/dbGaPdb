@@ -16,7 +16,7 @@ output: html_document
 4. study_variable_info.txt
 5. study_dataset_info.txt
 
-### Here's a random sample of whats in the files:
+### Here's a random sample of whats in each files:
 
 1. study_dataset_info.txt
 
