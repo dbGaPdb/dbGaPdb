@@ -1,0 +1,79 @@
+---
+title: "Word Cloud of dbGaP Diseases"
+author: "David McGaughey"
+date: "8/16/2017"
+output: html_document
+---
+
+```{r results='hide',message=FALSE,echo=FALSE}
+library(knitr)
+opts_chunk$set(cache=TRUE)
+```
+
+# Load libraries
+```{r}
+library(dbGaPdb)
+library(RSQLite)
+library(dplyr)
+library(dbplyr)
+library(stringr)
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+
+```
+
+# Connect to db
+```{r}
+dbGaPdb_file <- pull_dbGaPdb_sqlite(local_path = '~/Desktop')
+dbGaPdb <- src_sqlite(dbGaPdb_file)
+# If you've already downloaded the sqlite file
+## dbGaPdb <- src_sqlite('~/PATH/your_dbGaP.sqlite')
+```
+
+# Grab diseases studied for each dbGaP study
+```{r}
+diseases_by_study <- tbl(dbGaPdb, "study_info") %>% 
+  select(root_study_accession, disease) %>% 
+  data.frame() %>% 
+  rowwise() %>% 
+  mutate(study_accession2 = str_split(root_study_accession, '\\.')[[1]][1]) %>% 
+  select(study_accession2, disease) %>% 
+  unique() %>% pull(disease)
+```
+
+# Process vector for word cloud
+```{r}
+docs <- Corpus(VectorSource(diseases_by_study))
+
+# Convert the text to lower case
+docs <- tm_map(docs, content_transformer(tolower))
+# Remove numbers
+docs <- tm_map(docs, removeNumbers)
+# Remove english common stopwords
+docs <- tm_map(docs, removeWords, stopwords("english"))
+# Remove your own stop word
+# specify your stopwords as a character vector
+docs <- tm_map(docs, removeWords, c("diseases", "disease")) 
+# Remove punctuations
+docs <- tm_map(docs, removePunctuation)
+# Eliminate extra white spaces
+docs <- tm_map(docs, stripWhitespace)
+```
+
+# Build term document matrix
+```{r}
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+```
+
+# Make word cloud
+```{r, fig.width=4, fig.height=4}
+set.seed(1234)
+wordcloud(words = d$word, freq = d$freq, min.freq = 1,
+          max.words=100, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"), scale=c(4,1))
+```
