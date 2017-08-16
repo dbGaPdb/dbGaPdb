@@ -15,16 +15,27 @@ The Database of Genotypes and Phenotypes (dbGaP) at
 devtools::install_github(repo = 'dbGaPdb/dbGaPdb')
 ```
 
-# Quick Start (R users)
+# Quick Start
+```{r}
+library(dbGaPdb)
+library(dbplyr)
+library(dplyr)
+
+dbGaPdb_file <- pull_dbGaPdb_sqlite(local_path = '~/')
+dbGaPdb <- src_sqlite(dbGaPdb_file)
+dbGaPdb
+tbl(dbGaPdb, 'study_info') %>% select(this_study_accession, name) %>% head(20)
+```
+
+# Quick Start (Folks more comfortable with SQL)
 ```{r}
 library(dbGaPdb)
 library(RSQLite)
 
-
 dbGaPdb_file <- pull_dbGaPdb_sqlite(local_path = '~/')
 con <- dbConnect(SQLite(), dbGaPdb_file)
 dbListTables(con)
-dbGetQuery(con, 'SELECT * FROM study_info LIMIT 20')
+dbGetQuery(con, 'SELECT this_study_accession, name FROM study_info LIMIT 20')
 ```
 
 
