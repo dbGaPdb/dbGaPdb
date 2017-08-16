@@ -5,13 +5,23 @@ date: "August 15, 2017"
 output: html_document
 ---
 
+```{r results='hide',message=FALSE,echo=FALSE}
+library(knitr)
+opts_chunk$set(cache=TRUE)
+```
+
 # dbGaPdb 
 
 ## Linking dbGaPdb with SRAdb 
 
-SRAdb allows for efficient searching through metadata associated with files deposited to the Sequence Read Archives (SRA). dpGaP contains studies with genomic data that are found in SRA. To access the metadata of dpGaP files in SRA, download SRAdb and search the 'sra' table for any rows that contain accessions starting with 'phs' found in the 'study_alias' column. 
+SRAdb allows for efficient searching through metadata associated with
+files deposited to the Sequence Read Archives (SRA). dpGaP contains
+studies with genomic data that are found in SRA. To access the
+metadata of dpGaP files in SRA, download SRAdb and search the 'sra'
+table for any rows that contain accessions starting with 'phs' found
+in the 'study_alias' column.  
 
-Load libraries
+- Load libraries
 
 ```{r, message=FALSE}
 library(SRAdb)
@@ -19,34 +29,37 @@ library(tidyverse)
 library(stringr)
 ```
 
-Download and load SRAdb (Make sure you have >30GB of free drive space!)
+- Download and load SRAdb (Make sure you have >30GB of free drive space!)
 
-```{r, message=FALSE, eval=FALSE}
-if(!file.exists('~/SRAmetadb.sqlite')) sqlfile <<- getSRAdbFile(destdir='~/',destfile='SRAmetadb.sqlite.gz')
-sqlfile = '~/SRAmetadb.sqlite'
+```{r, message=FALSE}
+if(!file.exists('SRAmetadb.sqlite'))
+    sqlfile <<- getSRAdbFile()
+sqlfile = 'SRAmetadb.sqlite'
 sra_con <- dbConnect(SQLite(), sqlfile)
 ```
 
-Load in dbGaPdb metadata
+- Load in dbGaPdb metadata
+
 You have to set `sqlfile` to the path of the sqlite file on your computer
+
 ```{r}
 ### load('../data/demo_dbgap_metadata.Rdata') 
 ### Would this already be loaded in by the bioconductor package?
 ```
-Query SRAdb for any files containing references to dbGaP
-```{r, eval=FALSE}
-dbGaP_SRA <- dbGetQuery(sra_con, "select * from study where study_alias like 'phs%'")
-dim(dbGaP_SRA)
-```
 
-Process `sra_in_dbGAP` and dbGaP metadata to make join-able
-```{r, eval=FALSE}
+- Process `sra_in_dbGAP` and dbGaP metadata to make join-able
+
+```{r}
 sra_in_dbGaP <- dbGetQuery(sra_con, "select * from sra where study_alias like 'phs%'")
+dim(sra_in_dbGaP)
 sra_in_dbGaP <- sra_in_dbGaP %>% 
               rowwise() %>% 
-              mutate(study_alias2 = str_split(study_alias, '_')[[1]][1])
-tables$study_variable_info <- tables$study_variable_info %>% 
-  rowwise() %>% 
-  mutate(study_alias = str_split(study_accession, '\\.')[[1]][1])
+              mutate(study_alias2 = str_split(study_alias,'_')[[1]][1])
+head(sra_in_dbGaP)	      
 ```
-Study accession codes found in the dpGaPdp metadata include study version information (e.g., `phs000514.v1`). However, SRAdb study accession codes do not follow the same nomenclature (e.g., `phs000307_49`). The above lines of code trim the inconsistency but, preserve the correct linking of the two databases using `dplyr`.
+
+Study accession codes found in the dpGaPdp metadata include study
+version information (e.g., `phs000514.v1`). However, SRAdb study
+accession codes do not follow the same nomenclature (e.g.,
+`phs000307_49`). The above lines of code trim the inconsistency but,
+preserve the correct linking of the two databases using `dplyr`. 

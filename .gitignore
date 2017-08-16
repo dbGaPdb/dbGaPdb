@@ -2,3 +2,8 @@
 .Rhistory
 .RData
 inst/doc
+vignettes/*.html
+*cache
+*sqlite
+*gz
+*zip
