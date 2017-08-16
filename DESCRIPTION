@@ -23,7 +23,13 @@ Imports:
   RSQLite,
   R.utils,
   dplyr,
+  dbplyr,
   stringr
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    tidyverse,
+    tm,
+    SnowballC,
+    wordcloud,
+    RColorBrewer
 VignetteBuilder: knitr
