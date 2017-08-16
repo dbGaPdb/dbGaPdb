@@ -36,6 +36,7 @@ sra_con <- dbConnect(SQLite(), sqlfile)
 
 ```{r, eval=FALSE}
 dbGaPdb_path <- pull_dbGaPdb_sqlite()
+dbGaPdb <- src_sqlite(dbGaPdb_path)
 ```
 
 ### Query SRAdb for any files containing references to dbGaP
@@ -51,7 +52,7 @@ dim(dbGaP_SRA)
 sra_in_dbGaP <- sra_in_dbGaP %>% 
               rowwise() %>% 
               mutate(study_alias2 = str_split(study_alias, '_')[[1]][1])
-tables$study_variable_info <- tables$study_variable_info %>% 
+dbGaPdb$study_variable_info <- dbGaPdb$study_variable_info %>% 
   rowwise() %>% 
   mutate(study_alias = str_split(study_accession, '\\.')[[1]][1])
 ```
