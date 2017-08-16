@@ -4,6 +4,10 @@ author: "David McGaughey"
 date: "8/16/2017"
 output: html_document
 ---
+```{r results='hide',message=FALSE,echo=FALSE}
+library(knitr)
+opts_chunk$set(cache=TRUE)
+```
 
 # Load libraries
 ```{r}
@@ -11,6 +15,7 @@ library(dbGaPdb)
 library(RSQLite)
 library(dplyr)
 library(dbplyr)
+library(stringr)
 ```
 # Downloading the dbGaPdb sqlite file and connecting to it via RSQLite
 We strongly suggest you provide a path for the `pull_dbGaPdb_sqlite()` script so you know exactly where the sqlite file is. The below is taken from the quick start from the readme
@@ -40,7 +45,7 @@ tbl(dbGaPdb, sql('SELECT study_accession, dataset_accession, short_description F
 
 # Link to two of the tables
 ```{r}
-study_dataset_info_SQL <- tbl(dbGaPdb, "study_dataset_info")
+study_info_SQL <- tbl(dbGaPdb, "study_info")
 study_variable_info_SQL <- tbl(dbGaPdb, "study_variable_info")
 ```
 
@@ -50,14 +55,35 @@ study_dataset_info_SQL %>% head()
 study_variable_info_SQL %>% head()
 ```
 
-# Filter
+# Filter to find number of variables with more than 10,000 females
 ```{r}
-study_variable_info_SQL %>% filter(female_count > 1000) %>% head()
+study_variable_info_SQL %>% 
+  filter(as.numeric(female_count) > 10000)
+```
+
+# Filter and group by studies to find number of studies where there are any variables with > 10,000 females
+```{r}
+study_variable_info_SQL %>% 
+  filter(as.numeric(female_count) > 10000) %>% 
+  group_by(study_accession) %>% 
+  summarise(`Number of variables with >10,0000 females`=n())
+```
+
+# Processing
+You may have noticed that there are many versions (e.g phs000200.v4 and phs000200.v5). If you want to aggregate or study at the study level, we'll need to remove the .vNUM part with a mutate. To do this operation we have to convert the data to a data frame to run the rowwise() and mutate() function. But now we can see that we have `study_variable_info_SQL %>% filter(as.numeric(female_count) > 10000) %>% data.frame() %>% rowwise() %>% mutate(study_accession2 = str_split(study_accession, '\\.')[[1]][1]) %>% group_by(study_accession2) %>% summarise(`Number of variables with >10,0000 females`=n()) %>% nrow()` unique studies. 
+```{r}
+study_variable_info_SQL %>% 
+  filter(as.numeric(female_count) > 10000) %>% 
+  data.frame() %>% 
+  rowwise() %>% 
+  mutate(study_accession2 = str_split(study_accession, '\\.')[[1]][1]) %>% 
+  group_by(study_accession2) %>% 
+  summarise(`Number of variables with >10,0000 females`=n())
 ```
 
 # Loading whole tables into memory as a R data frame
-You cannot run the full gamut of dplyr queries on SQLite, as several (e.g. tail(), sample_n()) require the data to be in memory. As the database isn't not too huge, most computers can handle having the tables loaded as a data frame
+You cannot run the full gamut of dplyr or base R queries on SQLite, as several (e.g. tail(), sample_n()) require the data to be in memory. As the database isn't not too huge, most computers can handle having the tables loaded as a data frame. After this you have a data frame and can run any base R or dplyr queries
 ```{r}
 study_variable_info <- study_variable_info_SQL %>% data.frame()
-study_variable_info %>% sample_n(10) %>% select(study_accession, )
+study_variable_info %>% sample_n(10) %>% select(study_accession, description)
 ```

@@ -90,7 +90,7 @@ emphysema_studies %in% rna_studies %>% table()
 interesting_studies <- tables$study_variable_info %>% 
   select(study_accession, variable_accession, male_count, female_count, description) %>%
   filter(grepl('cancer', description, ignore.case=T)) %>% 
-  filter(male_count > 50, female_count > 1000) %>% 
+  filter(as.numeric(male_count) > 50, as.numeric(female_count) > 1000) %>% 
   rowwise() %>% 
   mutate(study_accession2 = str_split(study_accession, '\\.')[[1]][1]) %>% 
   group_by(study_accession2) %>% 
