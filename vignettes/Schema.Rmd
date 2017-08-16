@@ -9,12 +9,28 @@ output: html_document
 
 ## What does dbGaP metadata contain?
 
-#### There are five files in the dbGaP metadata:
+#### It contains five files:
 1. study_dataset_info.txt 
 2. study_info.txt
 3. study_variable_code_value.txt
 4. study_variable_info.txt.gz
 5. study_dataset_info.txt.gz
+
+### Each file has different study-level info:
+1. study_variable_code_value.txt
+
+  row_names study_id study_version study_accession variable_id variable_version variable_accession code                  value rank_order
+2623315   2623315      200             6    phs000200.v6       79369                2     phv00079369.v2    0                   None          3
+1875185   1875185        8             6    phs000008.v6        1796                1     phv00001796.v1    9                UNKNOWN          3
+3150146   3150146      287             6    phs000287.v6      104555                1     phv00104555.v1    1                    ONE          2
+1654316   1654316        8            11   phs000008.v11       72387                1     phv00072387.v1    0                     NO          0
+2533401   2533401      200            10   phs000200.v10      193295                2     phv00193295.v2    1                    Yes          2
+125984     125984        7            14   phs000007.v14       21997                2     phv00021997.v2 <NA>                UNKNOWN          0
+1177600   1177600        7            26   phs000007.v26      142164                4     phv00142164.v4   30 beyond detection limit          1
+489401     489401        7            18   phs000007.v18      172488                1     phv00172488.v1 <NA>          Not filled in          2
+1475229   1475229        7            29   phs000007.v29       70766                4     phv00070766.v4    4     2-4 TIMES PER WEEK          8
+1019779   1019779        7            25   phs000007.v25         662                1     phv00000662.v1    1          YES, DEFINITE          5
+> 
 
  
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
