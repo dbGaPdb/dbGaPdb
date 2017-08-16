@@ -1,0 +1,52 @@
+---
+title: "Part1dbGaPdbVignette"
+author: "Complex Phenotypes group"
+date: "August 15, 2017"
+output: html_document
+---
+
+# dbGaPdb 
+
+## Linking dbGaPdb with SRAdb 
+
+SRAdb allows for efficient searching through metadata associated with files deposited to the Sequence Read Archives (SRA). dpGaP contains studies with genomic data that are found in SRA. To access the metadata of dpGaP files in SRA, download SRAdb and search the 'sra' table for any rows that contain accessions starting with 'phs' found in the 'study_alias' column. 
+
+Load libraries
+
+```{r, message=FALSE}
+library(SRAdb)
+library(tidyverse)
+library(stringr)
+```
+
+Download and load SRAdb (Make sure you have >30GB of free drive space!)
+
+```{r, message=FALSE, eval=FALSE}
+if(!file.exists('~/SRAmetadb.sqlite')) sqlfile <<- getSRAdbFile(destdir='~/',destfile='SRAmetadb.sqlite.gz')
+sqlfile = '~/SRAmetadb.sqlite'
+sra_con <- dbConnect(SQLite(), sqlfile)
+```
+
+Load in dbGaPdb metadata
+You have to set `sqlfile` to the path of the sqlite file on your computer
+```{r}
+### load('../data/demo_dbgap_metadata.Rdata') 
+### Would this already be loaded in by the bioconductor package?
+```
+Query SRAdb for any files containing references to dbGaP
+```{r, eval=FALSE}
+dbGaP_SRA <- dbGetQuery(sra_con, "select * from study where study_alias like 'phs%'")
+dim(dbGaP_SRA)
+```
+
+Process `sra_in_dbGAP` and dbGaP metadata to make join-able
+```{r, eval=FALSE}
+sra_in_dbGaP <- dbGetQuery(sra_con, "select * from sra where study_alias like 'phs%'")
+sra_in_dbGaP <- sra_in_dbGaP %>% 
+              rowwise() %>% 
+              mutate(study_alias2 = str_split(study_alias, '_')[[1]][1])
+tables$study_variable_info <- tables$study_variable_info %>% 
+  rowwise() %>% 
+  mutate(study_alias = str_split(study_accession, '\\.')[[1]][1])
+```
+Study accession codes found in the dpGaPdp metadata include study version information (e.g., `phs000514.v1`). However, SRAdb study accession codes do not follow the same nomenclature (e.g., `phs000307_49`). The above lines of code trim the inconsistency but, preserve the correct linking of the two databases using `dplyr`.
