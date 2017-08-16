@@ -10,7 +10,10 @@ The Database of Genotypes and Phenotypes (dbGaP) at
     to ontologies) are just a few potential applications.
 
 # Install
+```{r]
+# install.packages(devtools)
 devtools::install_github(repo = 'dbGaPdb/dbGaPdb')
+```
 
 # Quick Start (R users)
 ```{r}
