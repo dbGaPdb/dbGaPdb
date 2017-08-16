@@ -10,14 +10,10 @@ output: html_document
 ## dbGaP metadata
 
 ### There are five types of files in the dbGaP metadata with following titles:
-study_dataset_info.txt
- 
+study_dataset_info.txt 
 study_info.txt
- 
 study_variable_code_value.txt
- 
 study_variable_info.txt.gz
- 
 study_dataset_info.txt.gz
 
  
