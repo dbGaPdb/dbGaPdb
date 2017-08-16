@@ -41,14 +41,13 @@ dbGaPdb_path <- pull_dbGaPdb_sqlite()
 ### Query SRAdb for any files containing references to dbGaP
 
 ```{r, eval=FALSE}
-dbGaP_SRA <- dbGetQuery(sra_con, "select * from study where study_alias like 'phs%'")
+sra_in_dbGaP <- dbGetQuery(sra_con, "select * from study where study_alias like 'phs%'")
 dim(dbGaP_SRA)
 ```
 
-### Process `sra_in_dbGAP` and dbGaP metadata to make join-able
+### Process `sra_in_dbGaP` and dbGaP metadata to make join-able
 
 ```{r, eval=FALSE}
-sra_in_dbGaP <- dbGetQuery(sra_con, "select * from sra where study_alias like 'phs%'")
 sra_in_dbGaP <- sra_in_dbGaP %>% 
               rowwise() %>% 
               mutate(study_alias2 = str_split(study_alias, '_')[[1]][1])
