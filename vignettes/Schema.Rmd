@@ -5,9 +5,9 @@ date: "8/16/2017"
 output: html_document
 ---
 
-#Schema
+# Schema
 
-##There are five files in the dbGaP metadata.
+## There are five files in the dbGaP metadata.
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
