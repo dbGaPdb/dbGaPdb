@@ -5,16 +5,24 @@ date: "August 16, 2017"
 output: html_document
 ---
 
+## Quick Start
+
+Getting your json batch from CDE -> import to dbGaPdb (parse with python)-> list of studies (phs study accession) which have your data type:
+
+```
+code goes here
+```
+
 ## NIH Common Data Elements (CDE)
 
-Background on CDE and accessions, cross reference to dbGaP an therefore SRA.
+NIH is currently producing Common Data Elements (cde.nih.nlm.gov) to harmonize the categories of data present across studies available in their databases. This is currently implemented in dbGaP, and provides both a common naming terminology (often an amorphous concept) and *consensus measures for Phenotypes and eXposures (PhenX)* identifier. You can download a cross reference to dbGaP an therefore SRA.
 
 ```{r cars}
 summary(cars)
 ```
 
 ## Generating Data Table from exported json  
-You can go to the NIH CDE website and
+Currently there is not programatic access to CDE elements, so a batch file must be downloaded. You can go to the NIH CDE website https://cde.nlm.nih.gov/cde/search?selectedOrg=PhenX and search their PhenX terms for dbGaP. From the results you can stratify by category (on the left) and export a json (upper right corner) 
 
 ```{r pressure, echo=FALSE}
 plot(pressure)
