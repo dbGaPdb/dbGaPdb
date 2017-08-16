@@ -22,7 +22,7 @@ We strongly suggest you provide a path for the `pull_dbGaPdb_sqlite()` script so
 ```{r}
 dbGaPdb_file = 'dbGaPdb.sqlite'
 if(!file.exists(dbGaPdb_file))
-  dbGaPdb_file <- pull_dbGaPdb_sqlite(local_path='.')
+  dbGaPdb_file <- pull_dbGaPdb_sqlite(local_path='~/')
 dbGaPdb <- src_sqlite(dbGaPdb_file)
 # If you've already downloaded the sqlite file
 ## dbGaPdb <- src_sqlite('~/PATH/your_dbGaP.sqlite')

@@ -6,7 +6,7 @@
 \usage{
 pull_dbGaPdb_sqlite(local_path = tempdir(),
   sqlite_db_name = "dbGaPdb.sqlite",
-  link = "https://helix.nih.gov/~mcgaugheyd/dbGapdb.sqlite.gz")
+  link = "https://helix.nih.gov/~mcgaugheyd/dbGapdb_2017-08-16.sqlite.gz")
 }
 \description{
 Downloads dbGaPdb sqlite from temp link and unzips it

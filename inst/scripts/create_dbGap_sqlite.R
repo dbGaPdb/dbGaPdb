@@ -2,7 +2,7 @@
 # and create 5 data frames for the 5 types of data
 library(tidyverse)
 library(RSQLite)
-
+library(dplyr)
 # this script downloads current dbgap metadata (will take HOURS)
 source('./inst/scripts/Downloading_dbGaP_metadata.R')
 
@@ -28,17 +28,32 @@ table3_files <- dbgap_metadata_files[grepl('study_info', dbgap_metadata_files)]
 table4_files <- dbgap_metadata_files[grepl('study_variable_code_value', dbgap_metadata_files)]
 table5_files <- dbgap_metadata_files[grepl('study_variable_info', dbgap_metadata_files)]
 
+# function to identify empty files
+empty_file_finder <- function(list_of_files){
+  empties <- c()
+  for (i in seq(1,length(list_of_files))) {
+    if (length(list_of_files[[i]]) < 1){
+      empties <- c(empties, i)
+    }}
+  return(empties)
+}
 # read in all data, then rbind rows together
+# bind_rows will fail if columns are of different types
 table1_info <- lapply(table1_files, read_tsv)
-table1_data <- do.call("rbind", table1_info)
+table1_data <- do.call("rbind", table1_info[-empty_file_finder(table1_info)])
 table2_info <- lapply(table2_files, read_tsv)
-table2_data <- do.call("rbind", table2_info)
+table2_data <- do.call("rbind", table2_info[-empty_file_finder(table2_info)])
 table3_info <- lapply(table3_files, read_tsv)
-table3_data <- do.call("rbind", table3_info)
+table3_data <- do.call("rbind", table3_info[-empty_file_finder(table3_info)])
 table4_info <- lapply(table4_files, read_tsv)
-table4_data <- do.call("rbind", table4_info)
+table4_data <- do.call("rbind", table4_info[-empty_file_finder(table4_info)])
 table5_info <- lapply(table5_files, read_tsv)
-table5_data <- do.call("rbind", table5_info)
+table5_data <- do.call("rbind", table5_info[-empty_file_finder(table5_info)])
+
+###
+# load in CDE data
+cde<-read_tsv('./data/CDE_table.tsv')
+###
 
 dbGapDB_sql_file <- "./data/dbGaPdb.sqlite"
 dbGapDB_con <- dbConnect(SQLite(), dbname=dbGapDB_sql_file)
@@ -59,7 +74,9 @@ dbWriteTable(dbGapDB_con, "study_variable_code_value", table4_data, row.names=TR
 # study_variable_info
 dbWriteTable(dbGapDB_con, "study_variable_info", table5_data, row.names=TRUE, overwrite=TRUE,
              append=FALSE, field.types=NULL)
-
+# CDE
+dbWriteTable(dbGapDB_con, "CDE", cde, row.names=TRUE, overwrite=TRUE,
+             append=FALSE, field.types=NULL)
 # compress
 system('gzip ./data/dbGapdb.sqlite')
 
