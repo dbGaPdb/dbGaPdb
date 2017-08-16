@@ -9,11 +9,11 @@ output: html_document
 
 Generating your batch of CDEs -> list of studies (phs study accession) which have your data type:
 
-```
+```{r, include=FALSE}
 library(readr)
 CDE_Ocular <- read_csv("data/CDE_Ocular.csv")
 View(CDE_Ocular)
-dummy example SQL query studies matching your .csv Name column with datatype study name from dbGaPdb and sequence type info from SRAdb
+###dummy example SQL query studies matching your .csv Name column with datatype study name from dbGaPdb and sequence type info from SRAdb
 ```
 
 ## NIH Common Data Elements (CDE)
@@ -34,14 +34,14 @@ Currently there is not programatic access to CDE elements, so a list of primary 
 
 The primary key is the variable_accession (phv) is indexed to both the PhenX_ID and the Phenx text name. The table can be queried with the standard dbGaP querying (See Intro_to_dbGaP_querying). For instance, if you wanted a list of studies associated with your data:
 
-```
+```{r, include=FALSE}
 library(readr)
 CDE_Ocular <- read_csv("data/CDE_Ocular.csv")
 View(CDE_Ocular)
-dummy example SQL query studies matching your .csv Name column with datatype study name from dbGaPdb and sequence type info from SRAdb
+###dummy example SQL query studies matching your .csv Name column with datatype study name from dbGaPdb and sequence type info from SRAdb
 ```
 
 ### Backend SQL data generation:
-```
-dummy script on back end, $ python2 CDE_lite_json.py CDE_dbGAP.json
+```{r, include=FALSE}
+###dummy script on back end, $ python2 CDE_lite_json.py CDE_dbGAP.json
 ```
