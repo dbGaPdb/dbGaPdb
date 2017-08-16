@@ -1,0 +1,31 @@
+---
+title: "Linking to NIH Common Data Elements"
+author: "Robert Butler"
+date: "August 16, 2017"
+output: html_document
+---
+
+## NIH Common Data Elements (CDE)
+
+Background on CDE and accessions, cross reference to dbGaP an therefore SRA.
+
+```{r cars}
+summary(cars)
+```
+
+## Generating Data Table from exported json  
+You can go to the NIH CDE website and
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+##Importing Table to dbGaPdb
+
+texttexttext
+
+##Joining with variable tables for more information
+
+##Generating a list of Studies with your data type
