@@ -1,2 +1,4 @@
 # Install
-devtools::install_github(repo = 'NCBI-Hackathons/ComplexPhenotypes', subdir = 'dbGaPdb')
+devtools::install_github(repo = 'dbGaPdb/dbGaPdb')
+
+
