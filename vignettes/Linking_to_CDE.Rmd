@@ -10,7 +10,9 @@ output: html_document
 Getting your json batch from CDE -> import to dbGaPdb (parse with python)-> list of studies (phs study accession) which have your data type:
 
 ```
-code goes here
+dummy system call, python2 inst/scripts/CDE_lite_json.py data/CDE_Ocular.json
+dummy load CDE into SQL, this function does not exist, will take output of .py script into SQL table
+dummy example SQL query studies matching your Phenx list with datatype studyname from dbGaPdb and sequence type info from sradb
 ```
 
 ## NIH Common Data Elements (CDE)
@@ -19,7 +21,7 @@ NIH is currently producing Common Data Elements (cde.nih.nlm.gov) to harmonize t
 
 ## Generating Data Table from exported json  
 
-Currently there is not programatic access to CDE elements, so a batch file must be downloaded. You can go to the NIH CDE website https://cde.nlm.nih.gov/cde/search?selectedOrg=PhenX and search their PhenX terms for dbGaP. From the results you can stratify by category (on the left) and export a json (upper right corner):
+Currently there is not programatic access to CDE elements, so a batch file must be downloaded. You can go to the NIH CDE website https://cde.nlm.nih.gov/cde/search?selectedOrg=PhenX and search their PhenX terms for dbGaP. From the results you can stratify by category (on the left) and export a json (upper right corner). In this example, we selected the Ocular category to produce a sample subset "data/CDE_Ocular.json":
 
 ![Image of CDE website](./NIH_CDE.PNG)
 
@@ -29,11 +31,19 @@ Currently there is not programatic access to CDE elements, so a batch file must 
 The json exported from the website can be quickly parsed using the associated CDE_lite_json.py python script (tested in 2.7 and 3.6) and the output loaded in to dbGaPdb using the following commands:  
 
 ```
-source
+dummy system call, python2 inst/scripts/CDE_lite_json.py data/CDE_Ocular.json
+```
+
+the output file "CDE_table.tsv" can be imported
+
+```
+dummy load CDE into SQL, this function does not exist, will take output of .py script into SQL table
 ```
 
 ##Querying based on the new table
 
-At this point, the primary key is the variable_accseeion (phv) is indexed to both the PhenX_ID and the Phenx text name. At this point the table can be queried with the standard dbGaP querying (See Intro_to_dbGaP_querying). For instance, if you wanted a list of studies associated with your data
+At this point, the primary key is the variable_accession (phv) is indexed to both the PhenX_ID and the Phenx text name. At this point the table can be queried with the standard dbGaP querying (See Intro_to_dbGaP_querying). For instance, if you wanted a list of studies associated with your data:
 
-
+```
+dummy example SQL query studies matching your Phenx list with datatype studyname from dbGaPdb and sequence type info from sradb
+```
