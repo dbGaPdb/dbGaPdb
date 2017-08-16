@@ -19,18 +19,18 @@ output: html_document
 ### Each file has different study-level info:
 1. study_variable_code_value.txt
 
-  row_names study_id study_version study_accession variable_id variable_version variable_accession code                  value rank_order
-2623315   2623315      200             6    phs000200.v6       79369                2     phv00079369.v2    0                   None          3
-1875185   1875185        8             6    phs000008.v6        1796                1     phv00001796.v1    9                UNKNOWN          3
-3150146   3150146      287             6    phs000287.v6      104555                1     phv00104555.v1    1                    ONE          2
-1654316   1654316        8            11   phs000008.v11       72387                1     phv00072387.v1    0                     NO          0
-2533401   2533401      200            10   phs000200.v10      193295                2     phv00193295.v2    1                    Yes          2
-125984     125984        7            14   phs000007.v14       21997                2     phv00021997.v2 <NA>                UNKNOWN          0
-1177600   1177600        7            26   phs000007.v26      142164                4     phv00142164.v4   30 beyond detection limit          1
-489401     489401        7            18   phs000007.v18      172488                1     phv00172488.v1 <NA>          Not filled in          2
-1475229   1475229        7            29   phs000007.v29       70766                4     phv00070766.v4    4     2-4 TIMES PER WEEK          8
-1019779   1019779        7            25   phs000007.v25         662                1     phv00000662.v1    1          YES, DEFINITE          5
-> 
+|        |row_names |study_id | study_version|study_accession | variable_id| variable_version|variable_accession |code |value        |rank_order |
+|:-------|:---------|:--------|-------------:|:---------------|-----------:|----------------:|:------------------|:----|:------------|:----------|
+|1236780 |1236780   |7        |            27|phs000007.v27   |        9014|                5|phv00009014.v5     |0    |NORMAL       |1          |
+|1887800 |1887800   |8        |             6|phs000008.v6    |        5064|                1|phv00005064.v1     |8    |NOT TRIED    |2          |
+|573860  |573860    |7        |            19|phs000007.v19   |      171892|                1|phv00171892.v1     |NA   |Unknown      |1          |
+|2256764 |2256764   |86       |             2|phs000086.v2    |       28661|                1|phv00028661.v1     |1    |A LITTLE     |2          |
+|1759805 |1759805   |8        |             3|phs000008.v3    |        5304|                1|phv00005304.v1     |3    |DEPENDENT    |5          |
+|277424  |277424    |7        |            16|phs000007.v16   |        9648|                2|phv00009648.v2     |NA   |UNKNOWN      |3          |
+|233338  |233338    |7        |            15|phs000007.v15   |      156951|                2|phv00156951.v2     |2    |Any Corn Oil |3          |
+|442376  |442376    |7        |            18|phs000007.v18   |        9935|                3|phv00009935.v3     |2    |MAYBE        |1          |
+|963373  |963373    |7        |            24|phs000007.v24   |        8994|                5|phv00008994.v5     |3    |WITH ULCERS  |5          |
+|1578930 |1578930   |8        |            10|phs000008.v10   |        3960|                1|phv00003960.v1     |NA   |UNKNOWN      |4          |
 
  
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
