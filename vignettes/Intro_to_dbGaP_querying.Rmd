@@ -66,7 +66,7 @@ study_variable_info_SQL %>%
 ```
 
 # Processing
-You may have noticed that there are many versions (e.g phs000200.v4 and phs000200.v5). If you want to aggregate or study at the study level, we'll need to remove the .vNUM part with a mutate. To do this operation we have to convert the data to a data frame to run the rowwise() function. But now we can see that we have `study_variable_info_SQL %>% filter(as.numeric(female_count) > 10000) %>% data.frame() %>% rowwise() %>% mutate(study_accession2 = str_split(study_accession, '\\.')[[1]][1]) %>% group_by(study_accession2) %>% summarise(`Number of variables with >10,0000 females`=n()) %>% nrow()` unique studies. 
+You may have noticed that there are many versions (e.g phs000200.v4 and phs000200.v5). If you want to aggregate or study at the study level, we'll need to remove the .vNUM part with a mutate. To do this operation we have to convert the data to a data frame to run the rowwise() and mutate() function. But now we can see that we have `study_variable_info_SQL %>% filter(as.numeric(female_count) > 10000) %>% data.frame() %>% rowwise() %>% mutate(study_accession2 = str_split(study_accession, '\\.')[[1]][1]) %>% group_by(study_accession2) %>% summarise(`Number of variables with >10,0000 females`=n()) %>% nrow()` unique studies. 
 ```{r}
 study_variable_info_SQL %>% 
   filter(as.numeric(female_count) > 10000) %>% 
