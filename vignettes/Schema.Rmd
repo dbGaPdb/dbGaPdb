@@ -9,7 +9,7 @@ output: html_document
 
 ## What does dbGaP metadata contain?
 
-### There are five files in the dbGaP metadata:
+#### There are five files in the dbGaP metadata:
 1. study_dataset_info.txt 
 2. study_info.txt
 3. study_variable_code_value.txt
