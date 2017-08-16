@@ -4,6 +4,10 @@ author: "David McGaughey"
 date: "8/16/2017"
 output: html_document
 ---
+```{r results='hide',message=FALSE,echo=FALSE}
+library(knitr)
+opts_chunk$set(cache=TRUE)
+```
 
 # Load libraries
 ```{r}
