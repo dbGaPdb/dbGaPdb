@@ -16,7 +16,8 @@ output: html_document
 4. study_variable_info.txt
 5. study_dataset_info.txt
 
-### Each file has different study-level info:
+### Here's a random sample of whats in the files:
+
 1. study_dataset_info.txt
 
 |      |row_names | study_id| study_version|study_accession | dataset_id| dataset_version|dataset_accession |name                         |dataset_type_category |description                                                                                                                                                                |short_description                                                                                                                                                          |
