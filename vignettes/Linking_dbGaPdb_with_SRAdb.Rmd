@@ -52,15 +52,19 @@ dim(dbGaP_SRA)
 sra_in_dbGaP <- sra_in_dbGaP %>% 
               rowwise() %>% 
               mutate(study_alias2 = str_split(study_alias, '_')[[1]][1])
-dbGaPdb$study_variable_info <- dbGaPdb$study_variable_info %>% 
-  rowwise() %>% 
-  mutate(study_alias = str_split(study_accession, '\\.')[[1]][1])
+              
+study_info <- tbl(dbGaPdb, 'study_info')
+dfstudy_info <- study_info %>% data.frame()
+
+dfstudy_info <- dfstudy_info %>% 
+    rowwise() %>% 
+    mutate(study_alias = str_split(this_study_accession, '\\.')[[1]][1])
 ```
 
 Study accession codes found in the dpGaPdp metadata include study version information (e.g., `phs000514.v1`). However, SRAdb study accession codes do not follow the same nomenclature (e.g., `phs000307_49`). The above lines of code trim the inconsistency and generate a new column that holds consistent values between the two databases.
 
 ```{r, eval=FALSE}
-SRAdb_dbGaP <- left_join(dbGaPdb$study_variable_info, sra_in_dbGaP, by = c('study_alias' = 'study_alias2'))
+SRAdb_dbGaP <- left_join(dfstudy_info, sra_in_dbGaP, by = c('study_alias' = 'study_alias2'))
 ```
 After the SRAdb and the dbGaP metadata are linked, we are able to construct queries on variables across the two databases. 
 
