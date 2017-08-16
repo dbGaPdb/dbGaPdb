@@ -78,7 +78,7 @@ study_variable_info_SQL %>%
 ```
 
 # Loading whole tables into memory as a R data frame
-You cannot run the full gamut of dplyr queries on SQLite, as several (e.g. tail(), sample_n()) require the data to be in memory. As the database isn't not too huge, most computers can handle having the tables loaded as a data frame. After this you have a data frame and can run any base R or dplyr queries
+You cannot run the full gamut of dplyr or base R queries on SQLite, as several (e.g. tail(), sample_n()) require the data to be in memory. As the database isn't not too huge, most computers can handle having the tables loaded as a data frame. After this you have a data frame and can run any base R or dplyr queries
 ```{r}
 study_variable_info <- study_variable_info_SQL %>% data.frame()
 study_variable_info %>% sample_n(10) %>% select(study_accession, description)
