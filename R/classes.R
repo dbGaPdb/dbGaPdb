@@ -1,5 +1,7 @@
 #' Interact with dbGaPdb
 #'
+#' @importClassesFrom RSQLite SQLiteConnection
+#'
 setRefClass('dbGaPdb',
   fields = list(sra_attached="logical",
       .connection = "SQLiteConnection"),
@@ -23,5 +25,5 @@ setRefClass('dbGaPdb',
           dpt
       }
       ))
-          
-                
+
+

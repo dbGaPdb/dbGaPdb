@@ -3,3 +3,4 @@
 export(hello)
 export(pull_dbGaPdb_sqlite)
 import(R.utils)
+importClassesFrom(RSQLite,SQLiteConnection)
