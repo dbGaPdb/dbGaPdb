@@ -60,17 +60,3 @@ output: html_document
 |:-----|:---------|--------:|-------------:|:---------------|----------:|---------------:|:-----------------|:-----------------------------|:---------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |17030 |17030     |      708|             1|phs000708.v1    |       3727|               1|pht003727.v1      |POAT_GEDWR_Subject_Phenotypes |subject               |This subject phenotype table includes subject gender, age, weight, height, congestive heart failure status, stable warfarin dose, glomerular filtration rate (n=2 variables), amiodarone co-therapy use, and aspirin use. |This subject phenotype table includes subject gender, age, weight, height, congestive heart failure status, stable warfarin dose, glomerular filtration rate (n=2 variables), amiodarone co-therapy use, and aspirin use. |
 >                                                       |
-
-
-
-```{r}
-summary(cars)
-```
-
-You can also embed plots, for example:
-
-```{r, echo=FALSE}
-plot(cars)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
