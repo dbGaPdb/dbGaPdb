@@ -35,7 +35,7 @@ sra_con <- dbConnect(SQLite(), sqlfile)
 ### Load in dbGaPdb metadata as described in the vignette introduction
 
 ```{r, eval=FALSE}
-dbGaPdb_path <- pull_dbGaPdb_sqlite()
+dbGaPdb_path <- pull_dbGaPdb_sqlite(local_path = '~/')
 dbGaPdb <- src_sqlite(dbGaPdb_path)
 ```
 
