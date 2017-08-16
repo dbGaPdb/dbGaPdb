@@ -27,8 +27,6 @@ Currently there is not programatic access to CDE elements, so a list of primary 
 
 ![Image of CDE website](./NIH_CDE.PNG)
 
-Your query terms will be the first column, the 
-
 ### Querying based on the table
 
 The primary key is the variable_accession (phv) is indexed to both the PhenX_ID and the Phenx text name. The table can be queried with the standard dbGaP querying (See Intro_to_dbGaP_querying). For instance, if you wanted a list of studies associated with your data:
@@ -37,6 +35,7 @@ The primary key is the variable_accession (phv) is indexed to both the PhenX_ID 
 dummy example SQL query studies matching your Phenx list with datatype studyname from dbGaPdb and sequence type info from SRAdb
 ```
 
-Backend SQL data generation:
+### Backend SQL data generation:
 ```
 dummy script on back end, $ python2 CDE_lite_json.py CDE_dbGAP.json
+```
